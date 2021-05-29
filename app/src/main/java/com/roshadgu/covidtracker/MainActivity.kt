@@ -2,9 +2,12 @@ package com.roshadgu.covidtracker
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.MaterialTheme
 import com.roshadgu.covidtracker.R
 import com.google.gson.GsonBuilder
+import com.roshadgu.covidtracker.ui.components.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +25,7 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent{ HomeActivity() }
 
         val gson = GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
