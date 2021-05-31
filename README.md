@@ -1,9 +1,3 @@
-
-
-
-
-![GitHub Cards Preview](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/NOTZZ%20APP%20CARD.jpg?raw=true)
-
 # Covid Tracker
 **Covide Tracker** is a simple data driven Android application built to relay relavent stats about the increases, decreases and death involving the COVID-19 virus.  *Made with love ❤️ by [Roshad](https://github.com/Roshadgu)*
 
