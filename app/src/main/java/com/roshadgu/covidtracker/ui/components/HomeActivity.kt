@@ -69,7 +69,6 @@ fun HomeScreen()
           end.linkTo(parent.end)
         },
       horizontalArrangement = Arrangement.Center)
-
     {
       RadioButton(selected = false, onClick = { /*TODO*/ }, Modifier.padding(start = 3.dp, bottom = 8.dp, end = 3.dp))
       Text(text = "Negative")
@@ -78,22 +77,6 @@ fun HomeScreen()
       RadioButton(selected = false, onClick = { /*TODO*/ }, Modifier.padding(start = 3.dp, end = 3.dp))
       Text(text = "Death")
     }
-
-    //Robhinhood Spark View
-    AndroidView(
-      modifier = Modifier
-        .fillMaxSize()
-        .constrainAs(RHSparkView)
-        {
-          top.linkTo(RadioGrpMetricSelection.bottom)
-          bottom.linkTo(RadioGrpTimeSelection.top)
-        },
-      factory = { context ->
-        SparkView(context).apply {
-          ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-        }
-      }
-    )
 
     Row( //Time Selection
       Modifier
@@ -124,15 +107,12 @@ fun HomeScreen()
   }
 
   //Robinhood Ticker View
-  AndroidView(
+  /*AndroidView(
     modifier = Modifier
-      .fillMaxSize()
-      .constrainAs(RHTickerView)
-      {
-        //start.linkto(parent.end)
-      },
+      .fillMaxSize(),
+
     factory = { context -> TickerView(context).apply { } }
-  )
+  )*/
 }
 
 @Preview(showBackground = true, backgroundColor = 0xffffff)
