@@ -2,6 +2,7 @@ package com.roshadgu.covidtracker.ui.components
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -20,10 +21,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.robinhood.spark.SparkView
 import com.robinhood.ticker.TickerView
+import com.roshadgu.covidtracker.R
 
 class HomeActivity : AppCompatActivity()
 {
@@ -82,16 +85,19 @@ fun HomeScreen()
     //Robhinhood Spark View
     AndroidView(
       modifier = Modifier
-        .fillMaxSize()
+        .fillMaxHeight()
         .constrainAs(RHSparkView)
         {
           top.linkTo(RadioGrpMetricSelection.bottom)
           bottom.linkTo(RadioGrpTimeSelection.top)
         },
-      factory = { context ->
+      factory = { context: Context ->
+        val sparkview = LayoutInflater.from(context).inflate(R.layout.robinhood_spark, null, false)
+        /*
         SparkView(context).apply {
           ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-        }
+        }*/
+        sparkview
       }
     )
 
@@ -102,12 +108,12 @@ fun HomeScreen()
         .selectableGroup()
         .constrainAs(RadioGrpTimeSelection)
         {
-          top.linkTo(RadioGrpMetricSelection.bottom)
+          //top.linkTo(RHSparkView.bottom)
           start.linkTo(parent.start)
           end.linkTo(parent.end)
+          bottom.linkTo(RHTickerView.top)
         },
       horizontalArrangement = Arrangement.Center)
-
     {
       RadioButton(selected = false, onClick = { /*TODO*/ }, Modifier.padding(start = 3.dp, bottom = 8.dp, end = 3.dp))
       Text(text = "Week")
@@ -116,13 +122,36 @@ fun HomeScreen()
       RadioButton(selected = false, onClick = { /*TODO*/ }, Modifier.padding(start = 3.dp, end = 3.dp))
       Text(text = "Max")
     }
-  }
 
-  BoxWithConstraints()
-  {
-    Text(text = "May 31, 2020")
-  }
+    Text(
+      text = "May 31, 2020",
+      Modifier
+        .constrainAs(DateLabel)
+        {
+          start.linkTo(parent.start)
+          top.linkTo(RadioGrpTimeSelection.bottom)
+          end.linkTo(RHTickerView.start)
+          bottom.linkTo(parent.bottom)
+        }
+        .padding(start = 16.dp)
+        .height(80.dp)
+    )
 
+    Text(
+      text = "4,354",
+      //fontSize = 30.sp,
+      Modifier
+        .constrainAs(RHTickerView)
+        {
+          start.linkTo(DateLabel.end)
+          end.linkTo(parent.end)
+          //top.linkTo(RadioGrpTimeSelection.bottom)
+          bottom.linkTo(parent.bottom)
+        }
+        .fillMaxWidth()
+    )
+  }
+/*
   //Robinhood Ticker View
   AndroidView(
     modifier = Modifier
@@ -132,7 +161,7 @@ fun HomeScreen()
         //start.linkto(parent.end)
       },
     factory = { context -> TickerView(context).apply { } }
-  )
+  )*/
 }
 
 @Preview(showBackground = true, backgroundColor = 0xffffff)
